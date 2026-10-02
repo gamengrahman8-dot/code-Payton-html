@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>NEXCODE Studio - Free Online Code Editor</title>
+
+<meta name="description" content="Use NEXCODE Studio, a free online code editor to write HTML, CSS, JavaScript and Python. Test code, preview web pages and download your projects in your browser.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#080b12">
+<meta name="application-name" content="NEXCODE Studio">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NEXCODE Studio">
+<meta property="og:title" content="NEXCODE Studio - Free Online Code Editor">
+<meta property="og:description" content="Write and test HTML, CSS, JavaScript and Python online. Preview web projects and download your code.">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NEXCODE Studio - Online Code Editor">
+<meta name="twitter:description" content="A browser-based workspace for HTML, CSS, JavaScript and Python.">
+
+<!-- Add your Google Search Console verification meta tag here after verification. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<style>
+:root {
+  --bg: #080b12;
+  --panel: #101725;
+  --panel2: #151f30;
+  --border: #26344a;
+  --text: #edf4ff;
+  --muted: #98a9c1;
+  --blue: #3998ff;
+  --cyan: #50d9ff;
+  --green: #36d6a0;
+  --red: #ff657a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 0%, #102b4b 0%, transparent 35%),
+    radial-gradient(ellipse at 100% 20%, #13203c 0%, transparent 30%),
+    var(--bg);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.topbar {
+  min-height: 72px;
+  padding: 14px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid #26344a;
+  background: rgba(8, 11, 18, .86);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(135deg, #1689ff, #5d50ff);
+  box-shadow: 0 6px 24px #1689ff35;
+  font-size: 23px;
+}
+
+.brand span:last-child {
+  color: var(--cyan);
+}
+
+.top-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.top-links a {
+  text-decoration: none;
+  color: #c7d4e8;
+  font-size: 14px;
+}
+
+.top-links a:hover {
+  color: var(--cyan);
+}
+
+.primary-btn, .secondary-btn, .danger-btn {
+  border: 1px solid transparent;
+  border-radius: 9px;
+  padding: 10px 14px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.primary-btn {
+  color: white;
+  background: linear-gradient(135deg, #1689ff, #5755f6);
+}
+
+.primary-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.secondary-btn {
+  background: #19263a;
+  border-color: #30425e;
+  color: #e4efff;
+}
+
+.secondary-btn:hover {
+  background: #223653;
+}
+
+.danger-btn {
+  color: #ffdbe0;
+  background: #351a27;
+  border-color: #623044;
+}
+
+.hero {
+  padding: 58px 20px 38px;
+  max-width: 1050px;
+  margin: auto;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #91dfff;
+  background: #102941;
+  border: 1px solid #224d72;
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 6vw, 62px);
+  line-height: 1.12;
+  margin: 0 auto 18px;
+  max-width: 850px;
+  letter-spacing: -1.5px;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #45a5ff, #6ae4ff, #9c9aff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: 0 auto 25px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+  max-width: 1100px;
+  padding: 0 20px;
+  margin: 0 auto 32px;
+}
+
+.feature-card {
+  padding: 19px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: linear-gradient(145deg, #111c2d, #0c121e);
+}
+
+.feature-icon {
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+
+.feature-card h3 {
+  font-size: 14px;
+  margin: 0 0 7px;
+}
+
+.feature-card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.workspace {
+  max-width: 1400px;
+  margin: 0 auto 45px;
+  padding: 0 20px;
+}
+
+.workspace-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.workspace-heading h2 {
+  margin: 0;
+  font-size: 23px;
+}
+
+.workspace-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 7px 0 0;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.toolbar button {
+  font-size: 12px;
+}
+
+.editor-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: 15px;
+  align-items: stretch;
+}
+
+.panel {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0c121d;
+  box-shadow: 0 14px 40px #00000020;
+}
+
+.panel-header {
+  padding: 13px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: #131d2c;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-title {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.panel-subtitle {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  overflow-x: auto;
+  background: #0e1725;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  border: 1px solid transparent;
+  background: transparent;
+  color: #9eafc7;
+  border-radius: 7px;
+  padding: 9px 13px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.tab.active {
+  color: white;
+  background: #1d3554;
+  border-color: #2d5c8d;
+}
+
+.editor-container {
+  position: relative;
+}
+
+.editor-label {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  color: #8fa6c4;
+  font-size: 11px;
+  background: #0a101a;
+  border-bottom: 1px solid #1c293a;
+}
+
+textarea.code-editor {
+  display: block;
+  width: 100%;
+  height: 390px;
+  resize: vertical;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  padding: 17px;
+  background: #090e17;
+  color: #d4e7ff;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.75;
+  tab-size: 2;
+  white-space: pre;
+  overflow: auto;
+  spellcheck: false;
+}
+
+.editor-footer {
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  border-top: 1px solid #1d293b;
+  background: #101725;
+}
+
+.preview-wrap {
+  background: white;
+  height: 390px;
+}
+
+#preview {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: white;
+}
+
+.output-tabs {
+  display: flex;
+  gap: 5px;
+  background: #0d1522;
+  border-top: 1px solid var(--border);
+  padding: 8px;
+}
+
+.output-tab {
+  color: #a9b9d0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 11px;
+}
+
+.output-tab.active {
+  color: white;
+  background: #20334d;
+  border-color: #2e4c70;
+}
+
+.console {
+  height: 150px;
+  overflow: auto;
+  padding: 12px;
+  color: #cbd8eb;
+  background: #080d15;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.console-line {
+  border-bottom: 1px solid #182337;
+  padding: 3px 0;
+}
+
+.console-line.error {
+  color: #ff8c9b;
+}
+
+.console-line.success {
+  color: #70e6b8;
+}
+
+.python-area {
+  padding: 14px;
+  border-top: 1px solid var(--border);
+  background: #101725;
+}
+
+.python-area h3 {
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+
+.python-area p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.python-output {
+  background: #080d15;
+  border: 1px solid #1f2e43;
+  min-height: 55px;
+  max-height: 170px;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 7px;
+  color: #b7f7d9;
+  white-space: pre-wrap;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12px;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-right: 5px;
+}
+
+.status-text {
+  font-size: 11px;
+  color: #a8bbd2;
+}
+
+.seo-content {
+  max-width: 1100px;
+  margin: 0 auto 45px;
+  padding: 27px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: linear-gradient(145deg, #101927, #0b111c);
+  color: #dce6f5;
+  line-height: 1.9;
+}
+
+.seo-content h2 {
+  color: #75bdff;
+  font-size: 23px;
+  margin: 0 0 12px;
+}
+
+.seo-content h3 {
+  color: #f3f6fc;
+  font-size: 17px;
+  margin: 24px 0 8px;
+}
+
+.seo-content p {
+  color: #b9c6d9;
+  font-size: 14px;
+  margin: 0 0 13px;
+}
+
+.seo-content [lang="fa"] {
+  text-align: right;
+  direction: rtl;
+}
+
+.faq {
+  max-width: 1100px;
+  margin: 0 auto 45px;
+  padding: 0 20px;
+}
+
+.faq h2 {
+  font-size: 24px;
+}
+
+.faq details {
+  padding: 16px;
+  margin-bottom: 10px;
+  background: #101725;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.faq details p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+.faq [lang="fa"] {
+  direction: rtl;
+  text-align: right;
+}
+
+footer {
+  padding: 27px 20px;
+  text-align: center;
+  color: #8ea0b9;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+footer a {
+  color: #7dcfff;
+  text-decoration: none;
+}
+
+.telegram {
+  position: fixed;
+  left: 17px;
+  bottom: 17px;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 51px;
+  height: 51px;
+  border-radius: 50%;
+  background: #168de2;
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 5px 25px #168de255;
+}
+
+.telegram:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 850px) {
+  .features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .editor-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .top-links a:not(.primary-btn) {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 500px) {
+  .topbar {
+    padding: 11px 14px;
+  }
+
+  .brand {
+    font-size: 17px;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .top-links .primary-btn {
+    padding: 9px;
+    font-size: 11px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .features {
+    padding: 0 14px;
+    gap: 9px;
+  }
+
+  .feature-card {
+    padding: 13px;
+  }
+
+  .workspace {
+    padding: 0 10px;
+  }
+
+  .workspace-heading h2 {
+    font-size: 20px;
+  }
+
+  .toolbar button {
+    padding: 8px 9px;
+  }
+
+  textarea.code-editor {
+    height: 320px;
+    font-size: 12px;
+  }
+
+  .preview-wrap {
+    height: 320px;
+  }
+
+  .seo-content {
+    margin: 0 10px 35px;
+    padding: 18px;
+  }
+
+  .seo-content h2 {
+    font-size: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <a href="#" class="brand" style="text-decoration:none;color:inherit">
+    <span class="brand-icon">&lt;/&gt;</span>
+    <span>NEXCODE <span>Studio</span></span>
+  </a>
+
+  <nav class="top-links" aria-label="Main navigation">
+    <a href="#features">Features</a>
+    <a href="#editor">Code Editor</a>
+    <a href="#learn">Learn</a>
+    <a href="#editor" class="primary-btn">Start Coding</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">YOUR CODE. YOUR IDEAS. YOUR FUTURE.</div>
+
+  <h1>
+    Build Something <span class="gradient-text">Amazing.</span>
+  </h1>
+
+  <p>
+    A simple online coding workspace for HTML, CSS, JavaScript and Python.
+    Write code, preview web pages and experiment directly in your browser.
+  </p>
+
+  <div class="hero-actions">
+    <button class="primary-btn" onclick="document.getElementById('editor').scrollIntoView({behavior:'smooth'})">
+      Open Code Editor →
+    </button>
+    <button class="secondary-btn" onclick="loadExample()">
+      Load Example
+    </button>
+  </div>
+</section>
+
+<section class="features" id="features" aria-label="Editor features">
+  <article class="feature-card">
+    <div class="feature-icon">🌐</div>
+    <h3>Live HTML Preview</h3>
+    <p>Build web pages and see your changes in the preview.</p>
+  </article>
+
+  <article class="feature-card">
+    <div class="feature-icon">⚡</div>
+    <h3>JavaScript Console</h3>
+    <p>Run JavaScript and inspect basic console output.</p>
+  </article>
+
+  <article class="feature-card">
+    <div class="feature-icon">🐍</div>
+    <h3>Python Runtime</h3>
+    <p>Run Python code in your browser using Pyodide.</p>
+  </article>
+
+  <article class="feature-card">
+    <div class="feature-icon">💾</div>
+    <h3>Save and Download</h3>
+    <p>Save your work locally or download your code files.</p>
+  </article>
+</section>
+
+<section class="workspace" id="editor">
+  <div class="workspace-heading">
+    <div>
+      <h2>Code Workspace</h2>
+      <p>Write code, run it, and test your ideas.</p>
+    </div>
+
+    <div class="toolbar">
+      <button class="primary-btn" onclick="runCode()">▶ Run</button>
+      <button class="secondary-btn" onclick="saveProject()">Save</button>
+      <button class="secondary-btn" onclick="downloadCode()">Download</button>
+      <button class="secondary-btn" onclick="copyCode()">Copy</button>
+      <button class="danger-btn" onclick="clearCurrentEditor()">Clear</button>
+    </div>
+  </div>
+
+  <div class="editor-layout">
+    <section class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Code Editor</span>
+        <span class="panel-subtitle" id="currentLanguage">HTML</span>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Programming languages">
+        <button class="tab active" data-lang="html" onclick="switchLanguage('html')">HTML</button>
+        <button class="tab" data-lang="css" onclick="switchLanguage('css')">CSS</button>
+        <button class="tab" data-lang="javascript" onclick="switchLanguage('javascript')">JavaScript</button>
+        <button class="tab" data-lang="python" onclick="switchLanguage('python')">Python</button>
+      </div>
+
+      <div class="editor-container">
+        <div class="editor-label">
+          <span id="fileName">index.html</span>
+          <span id="lineInfo">Line 1</span>
+        </div>
+
+        <textarea
+          id="codeEditor"
+          class="code-editor"
+          aria-label="Code editor"
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="off"
+          autocorrect="off"
+          wrap="off"
+        ></textarea>
+      </div>
+
+      <div class="editor-footer">
+        <span id="editorStatus">Ready</span>
+        <span>Browser-based workspace</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Output & Preview</span>
+        <span class="status-text"><span class="status-dot"></span>Ready</span>
+      </div>
+
+      <div class="preview-wrap">
+        <iframe
+          id="preview"
+          title="Live website preview"
+          sandbox="allow-scripts"
+          referrerpolicy="no-referrer"
+        ></iframe>
+      </div>
+
+      <div class="output-tabs">
+        <button class="output-tab active" id="consoleTab" onclick="showOutput('console')">Console</button>
+        <button class="output-tab" id="pythonTab" onclick="showOutput('python')">Python Output</button>
+      </div>
+
+      <div id="console" class="console" aria-live="polite">
+        <div class="console-line success">NEXCODE Studio is ready.</div>
+        <div class="console-line">Select a language and click Run.</div>
+      </div>
+
+      <div id="pythonPanel" class="python-area" hidden>
+        <h3>Python Execution</h3>
+        <p>Python runs through Pyodide. The first run requires an internet connection to load the runtime.</p>
+        <button class="primary-btn" id="runPythonButton" onclick="runPython()">▶ Run Python</button>
+        <span class="status-text" id="pythonStatus"> Runtime not loaded</span>
+        <div class="python-output" id="pythonOutput">Python output will appear here.</div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="seo-content" id="learn">
+  <h2>Free Online Code Editor for HTML, CSS, JavaScript and Python</h2>
+
+  <p>
+    NEXCODE Studio is an online code editor for writing and testing HTML,
+    CSS, JavaScript and Python. Create web pages, experiment with code,
+    preview website designs and download your projects from your browser.
+    This browser-based coding workspace is designed for beginners,
+    students and developers who want a simple place to practice programming.
+  </p>
+
+  <h3>Online HTML, CSS and JavaScript Editor</h3>
+  <p>
+    Write HTML markup, style your pages with CSS and test JavaScript in one
+    workspace. Use the preview panel to view your web page. You can also
+    save your project in this browser and download individual source files.
+  </p>
+
+  <h3>Run Python Online</h3>
+  <p>
+    Practice Python programming in your browser using the Pyodide runtime.
+    The runtime is downloaded when you run Python for the first time, so
+    an internet connection is required. Runtime availability may depend on
+    your browser and network settings.
+  </p>
+
+  <h2 lang="fa">سایت کدنویسی آنلاین رایگان</h2>
+
+  <p lang="fa">
+    NEXCODE Studio یک سایت کدنویسی آنلاین برای نوشتن و آزمایش کدهای
+    HTML، CSS، جاوااسکریپت و پایتون است. با این ویرایشگر کد آنلاین
+    می‌توانید طراحی سایت را تمرین کنید، نتیجه کدهای خود را در پیش‌نمایش
+    ببینید و فایل‌های برنامه‌نویسی خود را دانلود کنید.
+  </p>
+
+  <h3 lang="fa">ویرایشگر HTML و CSS آنلاین</h3>
+  <p lang="fa">
+    با ویرایشگر HTML و CSS آنلاین، ساختار صفحه وب را بنویسید، ظاهر آن را
+    طراحی کنید و نتیجه را در بخش پیش‌نمایش بررسی کنید. این ابزار برای
+    تمرین طراحی سایت و یادگیری برنامه‌نویسی وب کاربرد دارد.
+  </p>
+
+  <h3 lang="fa">اجرای آنلاین پایتون</h3>
+  <p lang="fa">
+    کدهای پایتون را در مرورگر بنویسید و خروجی آن‌ها را مشاهده کنید.
+    برای بارگذاری محیط اجرای پایتون، اتصال اینترنت لازم است. سرعت اجرا
+    و امکانات به مرورگر و محیط اجرای پایتون بستگی دارد.
+  </p>
+</section>
+
+<section class="faq" aria-labelledby="faqTitle">
+  <h2 id="faqTitle">Frequently Asked Questions</h2>
+
+  <details>
+    <summary>Is NEXCODE Studio free to use?</summary>
+    <p>You can use the coding workspace in your browser without installing a desktop editor. Internet access may be needed for some features.</p>
+  </details>
+
+  <details>
+    <summary>Can I write HTML, CSS and JavaScript online?</summary>
+    <p>Yes. Select the relevant editor tab, write your code and click Run to update the preview.</p>
+  </details>
+
+  <details>
+    <summary>Can I run Python online?</summary>
+    <p>Yes. Select Python and click Run Python. Pyodide needs to load first and requires a supported browser and internet access.</p>
+  </details>
+
+  <details>
+    <summary lang="fa">آیا NEXCODE Studio یک سایت کدنویسی آنلاین است؟</summary>
+    <p lang="fa">بله، این صفحه برای نوشتن و آزمایش کدهای HTML، CSS، جاوااسکریپت و پایتون در مرورگر طراحی شده است.</p>
+  </details>
+
+  <details>
+    <summary lang="fa">چطور کدهای خودم را دانلود کنم؟</summary>
+    <p lang="fa">زبان موردنظر را انتخاب کنید و روی دکمه Download بزنید تا فایل همان زبان دانلود شود.</p>
+  </details>
+</section>
+</main>
+
+<footer>
+  <div><strong>NEXCODE Studio</strong> — Online Code Editor</div>
+  <div>Write code. Learn. Build. Improve.</div>
+  <div>© <span id="year"></span> NEXCODE Studio</div>
+</footer>
+
+<a
+  class="telegram"
+  href="https://t.me/codejoop"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Contact us on Telegram"
+  title="Telegram"
+>➤</a>
+
+<script>
+"use strict";
+
+const editor = document.getElementById("codeEditor");
+const preview = document.getElementById("preview");
+const consoleBox = document.getElementById("console");
+const pythonPanel = document.getElementById("pythonPanel");
+const pythonOutput = document.getElementById("pythonOutput");
+const editorStatus = document.getElementById("editorStatus");
+
+const fileNames = {
+  html: "index.html",
+  css: "style.css",
+  javascript: "script.js",
+  python: "main.py"
+};
+
+const starterCode = {
+  html: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My First Website</title>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+  <p>Welcome to NEXCODE Studio.</p>
+  <button onclick="sayHello()">Click Me</button>
+</body>
+</html>`,
+  css: `body {
+  font-family: Arial, sans-serif;
+  background: #101827;
+  color: white;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+h1 {
+  color: #50d9ff;
+}
+
+button {
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #3998ff;
+  color: white;
+  cursor: pointer;
+}`,
+  javascript: `function sayHello() {
+  console.log("Hello from JavaScript!");
+  alert("Hello from NEXCODE Studio!");
+}
+
+sayHello();`,
+  python: `print("Hello, World!")
+print("Welcome to NEXCODE Studio.")
+
+name = "Developer"
+print("Hello,", name)`
+};
+
+let activeLanguage = "html";
+let code = { ...starterCode };
+let pyodideInstance = null;
+let pyodideLoading = false;
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+function updateEditorInfo() {
+  const beforeCursor = editor.value.slice(0, editor.selectionStart);
+  const line = beforeCursor.split("\n").length;
+  document.getElementById("lineInfo").textContent = "Line " + line;
+  document.getElementById("currentLanguage").textContent =
+    activeLanguage.toUpperCase();
+  document.getElementById("fileName").textContent =
+    fileNames[activeLanguage];
+}
+
+function switchLanguage(language) {
+  if (!fileNames[language]) return;
+
+  code[activeLanguage] = editor.value;
+  activeLanguage = language;
+  editor.value = code[language] || "";
+
+  document.querySelectorAll(".tab").forEach(button => {
+    button.classList.toggle("active", button.dataset.lang === language);
+  });
+
+  updateEditorInfo();
+  editorStatus.textContent = "Editing " + fileNames[language];
+
+  if (language === "python") {
+    showOutput("python");
+  } else {
+    showOutput("console");
+  }
+}
+
+function logMessage(message, type = "") {
+  const line = document.createElement("div");
+  line.className = "console-line" + (type ? " " + type : "");
+  line.textContent = String(message);
+  consoleBox.appendChild(line);
+  consoleBox.scrollTop = consoleBox.scrollHeight;
+}
+
+function clearConsole() {
+  consoleBox.replaceChildren();
+}
+
+function showOutput(which) {
+  const isPython = which === "python";
+
+  pythonPanel.hidden = !isPython;
+  consoleBox.hidden = isPython;
+
+  document.getElementById("consoleTab").classList.toggle("active", !isPython);
+  document.getElementById("pythonTab").classList.toggle("active", isPython);
+}
+
+function makePreviewDocument() {
+  const html = code.html || "";
+  const css = code.css || "";
+  const js = code.javascript || "";
+
+  const injectedCss = "<style>\n" + css + "\n</style>";
+  const injectedJs = `
+<script>
+(function () {
+  const send = function (type, args) {
+    parent.postMessage({
+      source: "nexcode-preview",
+      type: type,
+      args: Array.from(args || []).map(function (item) {
+        try {
+          if (typeof item === "string") return item;
+          return JSON.stringify(item);
+        } catch (_) {
+          return String(item);
+        }
+      })
+    }, "*");
+  };
+
+  ["log", "info", "warn", "error"].forEach(function (method) {
+    const original = console[method].bind(console);
+    console[method] = function () {
+      send(method, arguments);
+      original.apply(console, arguments);
+    };
+  });
+
+  window.addEventListener("error", function (event) {
+    send("error", [event.message || "JavaScript error"]);
+  });
+})();
+<\/script>
+<script>
+${js.replace(/<\/script/gi, "<\\/script")}
+<\/script>`;
+
+  let result = html;
+
+  if (/<\/head>/i.test(result)) {
+    result = result.replace(/<\/head>/i, injectedCss + "\n</head>");
+  } else {
+    result = injectedCss + result;
+  }
+
+  if (/<\/body>/i.test(result)) {
+    result = result.replace(/<\/body>/i, injectedJs + "\n</body>");
+  } else {
+    result += injectedJs;
+  }
+
+  return result;
+}
+
+function runCode() {
+  code[activeLanguage] = editor.value;
+
+  if (activeLanguage === "python") {
+    runPython();
+    return;
+  }
+
+  if (activeLanguage === "javascript") {
+    clearConsole();
+    showOutput("console");
+
+    try {
+      const safeConsole = {
+        log: (...args) => logMessage(args.map(formatValue).join(" ")),
+        info: (...args) => logMessage(args.map(formatValue).join(" ")),
+        warn: (...args) => logMessage("Warning: " + args.map(formatValue).join(" ")),
+        error: (...args) => logMessage("Error: " + args.map(formatValue).join(" "), "error")
+      };
+
+      const fn = new Function(
+        "console",
+        '"use strict";\n' + editor.value
+      );
+
+      fn(safeConsole);
+      logMessage("JavaScript execution finished.", "success");
+      editorStatus.textContent = "JavaScript executed";
+    } catch (error) {
+      logMessage(error.name + ": " + error.message, "error");
+      editorStatus.textContent = "Execution error";
+    }
+
+    return;
+  }
+
+  clearConsole();
+
+  try {
+    preview.srcdoc = makePreviewDocument();
+    logMessage("Preview updated.", "success");
+    editorStatus.textContent = "Preview updated";
+  } catch (error) {
+    logMessage(error.message, "error");
+    editorStatus.textContent = "Preview error";
+  }
+}
+
+function formatValue(value) {
+  if (typeof value === "string") return value;
+
+  try {
+    return JSON.stringify(value);
+  } catch (_) {
+    return String(value);
+  }
+}
+
+window.addEventListener("message", event => {
+  if (event.data?.source !== "nexcode-preview") return;
+
+  const type = event.data.type || "log";
+  const args = Array.isArray(event.data.args) ? event.data.args : [];
+  const message = args.join(" ");
+
+  logMessage(
+    (type === "error" ? "Error: " : "") + message,
+    type === "error" ? "error" : ""
+  );
+});
+
+async function loadPyodideRuntime() {
+  if (pyodideInstance) return pyodideInstance;
+  if (pyodideLoading) {
+    throw new Error("Python runtime is already loading. Please wait.");
+  }
+
+  pyodideLoading = true;
+  document.getElementById("pythonStatus").textContent = " Loading runtime...";
+
+  try {
+    if (!window.loadPyodide) {
+      await new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js";
+        script.onload = resolve;
+        script.onerror = () => reject(new Error(
+          "Could not load Pyodide. Check your internet connection and try again."
+        ));
+        document.head.appendChild(script);
+      });
+    }
+
+    pyodideInstance = await window.loadPyodide();
+    document.getElementById("pythonStatus").textContent = " Runtime ready";
+    return pyodideInstance;
+  } finally {
+    pyodideLoading = false;
+  }
+}
+
+async function runPython() {
+  code[activeLanguage] = editor.value;
+
+  showOutput("python");
+  pythonOutput.textContent = "Preparing Python runtime...";
+  document.getElementById("pythonStatus").textContent = " Loading...";
+  document.getElementById("runPythonButton").disabled = true;
+
+  try {
+    const pyodide = await loadPyodideRuntime();
+    const sourceCode = code.python || "";
+
+    pyodide.runPython(`
+import sys
+from io import StringIO
+_nexcode_output = StringIO()
+sys.stdout = _nexcode_output
+sys.stderr = _nexcode_output
+`);
+
+    try {
+      await pyodide.runPythonAsync(sourceCode);
+    } finally {
+      pyodide.runPython(`
+sys.stdout = sys.__stdout__
+sys.stderr = sys.__stderr__
+`);
+    }
+
+    const output = pyodide.runPython("_nexcode_output.getvalue()");
+    pythonOutput.textContent = output || "Code finished without printed output.";
+    document.getElementById("pythonStatus").textContent = " Runtime ready";
+    editorStatus.textContent = "Python executed";
+  } catch (error) {
+    pythonOutput.textContent = "Python error: " + error.message;
+    document.getElementById("pythonStatus").textContent = " Execution failed";
+    editorStatus.textContent = "Python error";
+  } finally {
+    document.getElementById("runPythonButton").disabled = false;
+  }
+}
+
+function saveProject() {
+  code[activeLanguage] = editor.value;
+
+  try {
+    localStorage.setItem("nexcode-studio-project", JSON.stringify(code));
+    editorStatus.textContent = "Project saved in this browser";
+    logMessage("Project saved locally.", "success");
+  } catch (error) {
+    editorStatus.textContent = "Could not save project";
+    logMessage("Save failed: " + error.message, "error");
+  }
+}
+
+function restoreProject() {
+  try {
+    const saved = localStorage.getItem("nexcode-studio-project");
+    if (!saved) return false;
+
+    const parsed = JSON.parse(saved);
+
+    for (const language of Object.keys(fileNames)) {
+      if (typeof parsed[language] === "string") {
+        code[language] = parsed[language];
+      }
+    }
+
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function downloadCode() {
+  code[activeLanguage] = editor.value;
+
+  const blob = new Blob([editor.value], {
+    type: activeLanguage === "html"
+      ? "text/html"
+      : activeLanguage === "css"
+      ? "text/css"
+      : activeLanguage === "javascript"
+      ? "text/javascript"
+      : "text/plain"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = fileNames[activeLanguage];
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(url);
+  editorStatus.textContent = "Downloaded " + fileNames[activeLanguage];
+}
+
+async function copyCode() {
+  try {
+    await navigator.clipboard.writeText(editor.value);
+    editorStatus.textContent = "Code copied";
+  } catch (_) {
+    editor.focus();
+    editor.select();
+
+    try {
+      document.execCommand("copy");
+      editorStatus.textContent = "Code copied";
+    } catch (error) {
+      editorStatus.textContent = "Copy failed. Select and copy manually.";
+    }
+  }
+}
+
+function clearCurrentEditor() {
+  if (!confirm("Clear the current editor?")) return;
+
+  editor.value = "";
+  code[activeLanguage] = "";
+  updateEditorInfo();
+  editorStatus.textContent = "Editor cleared";
+}
+
+function loadExample() {
+  code = { ...starterCode };
+  switchLanguage("html");
+  runCode();
+  editorStatus.textContent = "Example loaded";
+}
+
+editor.addEventListener("input", () => {
+  code[activeLanguage] = editor.value;
+  updateEditorInfo();
+  editorStatus.textContent = "Unsaved changes";
+});
+
+editor.addEventListener("click", updateEditorInfo);
+editor.addEventListener("keyup", updateEditorInfo);
+
+editor.addEventListener("keydown", event => {
+  if (event.key === "Tab") {
+    event.preventDefault();
+
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+
+    editor.setRangeText("  ", start, end, "end");
+    code[activeLanguage] = editor.value;
+    updateEditorInfo();
+  }
+
+  if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+    event.preventDefault();
+    runCode();
+  }
+});
+
+restoreProject();
+editor.value = code.html;
+updateEditorInfo();
+runCode();
+</script>
+
+</body>
+</html>
